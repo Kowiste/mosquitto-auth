@@ -2,13 +2,16 @@ version: "3"
 
 services:
 
-  redis:
-    image: redis:5-alpine
-    command: redis-server --requirepass password
-    volumes:
-      - redisdata:/data
+  database:
+    image: postgres:latest # use latest official postgres version
+    environment:
+      POSTGRES_DB: data
+      POSTGRES_USER: pablo
+      POSTGRES_PASSWORD: test
     ports:
-      - 6379:6379
+      - 5432:5432
+    volumes:
+      - database-data-2:/var/lib/postgresql/data/ # persist data even 
   mosquitto:
     image: iegomez/mosquitto-go-auth:latest
     volumes:
@@ -19,3 +22,4 @@ services:
 
 volumes:
   redisdata:
+  database-data-2: # named volumes can be managed easier using docker-compose
