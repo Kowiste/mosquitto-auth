@@ -4,6 +4,7 @@ services:
 
   database:
     image: postgres:latest # use latest official postgres version
+    container_name: postgreeDB
     environment:
       POSTGRES_DB: data
       POSTGRES_USER: pablo
@@ -11,9 +12,10 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - database-data-2:/var/lib/postgresql/data/ # persist data even 
+      - database-data-2:/var/lib/postgresql/data/ # persist data even
   mosquitto:
     image: iegomez/mosquitto-go-auth:latest
+    container_name: mqtt
     volumes:
       - ./conf:/etc/mosquitto
     ports:
