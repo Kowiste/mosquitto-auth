@@ -12,7 +12,15 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - database-data-2:/var/lib/postgresql/data/ # persist data even
+      - database-data:/var/lib/postgresql/data/ # persist data even
+  redis:
+    image: redis:5-alpine
+    container_name: redisDB
+    command: redis-server
+    volumes:
+      - redisdata:/data
+    ports:
+      - 6379:6379
   mosquitto:
     image: iegomez/mosquitto-go-auth:latest
     container_name: mqtt
@@ -24,4 +32,4 @@ services:
 
 volumes:
   redisdata:
-  database-data-2: # named volumes can be managed easier using docker-compose
+  database-data: # named volumes can be managed easier using docker-compose
